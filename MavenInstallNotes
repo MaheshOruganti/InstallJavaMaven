@@ -1,0 +1,78 @@
+# How to install Maven on Mac OSX
+
+1) To verify the Maven installation, in terminal, issue the command mvn -version.
+$mvn -version
+
+Apache Maven 3.0.3 (r1075438; 2011-03-01 01:31:09+0800)
+Maven home: /usr/share/maven
+Java version: 1.6.0_33, vendor: Apple Inc.
+Java home: /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: "mac os x", version: "10.7.4", arch: "x86_64", family: "mac"
+
+2)1.1 – Where is Maven installed?
+A quick check with whereis command :
+
+$ whereis mvn
+/usr/bin/mvn
+Copy
+$ cd /usr/bin
+$$ ls -ls | grep mvn
+ 8 lrwxr-xr-x   1 root   wheel        24 May 23 15:57 mvn -> /usr/share/maven/bin/mvn
+Copy
+By default, Maven is installed at /usr/share/maven. No configuration is needed.
+
+
+2. Install Maven Manually
+After the upgrade of Mac OS X Mavericks, Maven was removed (no idea why). So, You have to install it manually.
+
+2.1 – Download Maven
+Download the Maven, for example apache-maven-3.1.1-bin.tar.gz. Extracts it,
+
+tar -xvf apache-maven-3.1.1-bin.tar.gz
+
+$pwd
+/Users/mkyong/apache-maven-3.1.1
+Copy
+2.2 – Set Maven command in environment variable.
+Update ~/. bash_profile – create this file if doesn’t exist.
+
+$ vim ~/.bash_profile
+Copy
+~/.bash_profile
+export M2_HOME=/Users/mkyong/apache-maven-3.1.1
+export PATH=$PATH:$M2_HOME/bin
+Copy
+Restart the terminal. Test it.
+
+$mvn -version
+
+Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 23:22:22+0800)
+Maven home: /Users/mkyong/apache-maven-3.1.1
+Java version: 1.7.0_05, vendor: Oracle Corporation
+Java home: /Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "mac os x", version: "10.9", arch: "x86_64", family: "mac"
+
+
+
+3. Post Configuration
+A common post-installation for Maven, change the local repository to another location.
+
+$sudo vim /usr/share/maven/conf/settings.xml
+
+$vim /usr/mkyong/maven/conf/settings.xml
+Copy
+settings.xml
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ~/.m2/repository
+  <localRepository>/path/to/local/repo</localRepository>
+  -->
+ <localRepository>/Users/mkyong//maven/repo/</localRepository>
+Copy
+Above example changed the default repository from ~/.m2/repository to /Users/mkyong//maven/repo/.
+
+
+
